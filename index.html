@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pong - Projet BUT RT</title>
+  <style>
+    /* Style général de la page */
+    body {
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      background-color: black;
+      border: 2px solid white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jeu Pong 🎮</h1>
+  <canvas id="pong" width="600" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("pong");
+    const ctx = canvas.getContext("2d");
+
+    // Création des éléments du jeu
+    const paddleWidth = 10, paddleHeight = 80;
+    const player = { x: 10, y: canvas.height / 2 - paddleHeight / 2, dy: 0 };
+    const ai = { x: canvas.width - paddleWidth - 10, y: canvas.height / 2 - paddleHeight / 2 };
+    const ball = { x: canvas.width / 2, y: canvas.height / 2, size: 10, speedX: 4, speedY: 4 };
+
+    // Fonction pour dessiner une raquette
+    function drawPaddle(x, y) {
+      ctx.fillStyle = "white";
+      ctx.fillRect(x, y, paddleWidth, paddleHeight);
+    }
+
+    // Fonction pour dessiner la balle
+    function drawBall(x, y) {
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      ctx.arc(x, y, ball.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Déplacer la balle
+    function moveBall() {
+      ball.x += ball.speedX;
+      ball.y += ball.speedY;
+
+      // Collision mur haut/bas
+      if (ball.y + ball.size > canvas.height || ball.y - ball.size < 0) {
+        ball.speedY *= -1;
+      }
+
+      // Collision avec les raquettes
+      if (
+        ball.x - ball.size < player.x + paddleWidth &&
+        ball.y > player.y &&
+        ball.y < player.y + paddleHeight
+      ) {
+        ball.speedX *= -1;
+      }
+
+      if (
+        ball.x + ball.size > ai.x &&
+        ball.y > ai.y &&
+        ball.y < ai.y + paddleHeight
+      ) {
+        ball.speedX *= -1;
+      }
+
+      // Repositionner si la balle sort
+      if (ball.x < 0 || ball.x > canvas.width) {
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.speedX *= -1;
+      }
+    }
+
+    // Déplacer la raquette du joueur
+    function movePlayer() {
+      player.y += player.dy;
+      if (player.y < 0) player.y = 0;
+      if (player.y + paddleHeight > canvas.height)
+        player.y = canvas.height - paddleHeight;
+    }
+
+    // Déplacer la raquette de l’IA
+    function moveAI() {
+      if (ai.y + paddleHeight / 2 < ball.y) ai.y += 3;
+      else ai.y -= 3;
+    }
+
+    // Contrôles clavier
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp") player.dy = -6;
+      if (e.key === "ArrowDown") player.dy = 6;
+    });
+
+    document.addEventListener("keyup", () => {
+      player.dy = 0;
+    });
+
+    // Boucle principale du jeu
+    function update() {
+      moveBall();
+      movePlayer();
+      moveAI();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawPaddle(player.x, player.y);
+      drawPaddle(ai.x, ai.y);
+      drawBall(ball.x, ball.y);
+
+      requestAnimationFrame(update);
+    }
+
+    update();
+  </script>
+</body>
+</html>
