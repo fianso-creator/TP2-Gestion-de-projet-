@@ -19,3 +19,15 @@ canvas {
     background-color: #262331;
     border: 2px solid rgb(245, 223, 175);
 }
+
+  #introImage {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  #gameContent {
+    display: none; /* Cacher le contenu du jeu au début */
+  }
