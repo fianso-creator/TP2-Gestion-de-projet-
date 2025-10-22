@@ -4,20 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pong - Projet BUT RT</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Style général de la page */
+    body {
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Prend toute la hauteur de l'écran */
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 20px; /* Espacement entre le titre et le canvas */
+      font-size: 2rem;
+      text-align: center; /* Centrer le texte du titre */
+    }
+
+    canvas {
+      background-color: black;
+      border: 2px solid white;
+    }
+  </style>
 </head>
 <body>
-  <h1>Jeu Pong 🎮</h1>
+  <h1>Jeu Pong en brrr🎮</h1>
   <canvas id="pong" width="600" height="400"></canvas>
   
   <script>
-    // Création du canvas et de son contexte
     const canvas = document.getElementById("pong");
     const ctx = canvas.getContext("2d");
-
-    // Définir la taille du canvas
-    canvas.width = 800;
-    canvas.height = 600;
 
     // Création des éléments du jeu
     const paddleWidth = 10, paddleHeight = 80;
@@ -139,7 +158,6 @@
 
       requestAnimationFrame(update);
     }
-
   </script>
 </body>
 </html>
