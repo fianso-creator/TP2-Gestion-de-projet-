@@ -1,40 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu avec image d'introduction</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <!-- Image d'introduction -->
-    <div id="introImage">
-        <img src="Image de jeu vidéo.jpg" alt="Image d'introduction">
-    </div>
-
-    <!-- Contenu du jeu (initialement caché) -->
-    <div id="gameContent" style="display:none;">
-        <!-- Le contenu du jeu ici -->
-        <h1>Le jeu commence maintenant !</h1>
-    </div>
-
-    <script src="script.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pong - Projet BUT RT</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Style général de la page */
+    body {
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      background-color: black;
+      border: 2px solid white;
+    }
+
+    #introImage {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #gameContent {
+      display: none; /* Cacher le contenu du jeu au début */
+    }
+
   </style>
 </head>
 <body>
-  <h1>Jeu Pong 🎮</h1>
-  <canvas id="pong" width="600" height="400"></canvas>
+  <!-- Image d'introduction -->
+  <div id="introImage">
+    <img src="Image de jeu vidéo.jpg" alt="Image d'introduction" style="max-width: 100%; height: auto;">
+  </div>
+
+  <!-- Contenu du jeu (initialement caché) -->
+  <div id="gameContent">
+    <h1>Jeu Pong 🎮</h1>
+    <canvas id="pong" width="600" height="400"></canvas>
+  </div>
 
   <script>
+    const introImage = document.getElementById("introImage");
+    const gameContent = document.getElementById("gameContent");
     const canvas = document.getElementById("pong");
     const ctx = canvas.getContext("2d");
 
-    // Création des éléments du jeu
+    // Créer les éléments du jeu
     const paddleWidth = 10, paddleHeight = 80;
     const player = { x: 10, y: canvas.height / 2 - paddleHeight / 2, dy: 0 };
     const ai = { x: canvas.width - paddleWidth - 10, y: canvas.height / 2 - paddleHeight / 2 };
@@ -113,6 +138,16 @@
       player.dy = 0;
     });
 
+    // Fonction pour démarrer le jeu après 5 secondes
+    function startGame() {
+      introImage.style.display = "none";  // Masquer l'image d'introduction
+      gameContent.style.display = "block"; // Afficher le jeu
+      update();  // Démarrer la boucle du jeu
+    }
+
+    // Afficher l'intro pendant 5 secondes, puis démarrer le jeu
+    setTimeout(startGame, 5000);
+
     // Boucle principale du jeu
     function update() {
       moveBall();
@@ -126,8 +161,6 @@
 
       requestAnimationFrame(update);
     }
-
-    update();
   </script>
 </body>
 </html>
