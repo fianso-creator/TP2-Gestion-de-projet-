@@ -4,12 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pong - Projet BUT RT</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Style général de la page */
+    body {
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    canvas {
+      background-color: black;
+      border: 2px solid white;
+    }
+
+    #introImage {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #gameContent {
+      display: none; /* Cacher le contenu du jeu au début */
+    }
+
+  </style>
 </head>
 <body>
   <!-- Image d'introduction -->
   <div id="introImage">
-    <img src="4647444.png" alt="Image d'introduction" style="max-width: 100%; height: auto;">
+    <img src="Image de jeu vidéo.jpg" alt="Image d'introduction" style="max-width: 100%; height: auto;">
   </div>
 
   <!-- Contenu du jeu (initialement caché) -->
