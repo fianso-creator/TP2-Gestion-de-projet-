@@ -1,3 +1,45 @@
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+// Définir la taille du canvas
+canvas.width = 800;
+canvas.height = 600;
+
+const introImage = new Image();
+introImage.src = 'intro-image.png'; // Remplace par ton image
+
+// Fonction pour afficher l'image d'introduction pendant 5 secondes
+function showIntro() {
+    // Dessine l'image au centre du canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Efface tout à chaque frame
+    ctx.drawImage(introImage, 0, 0, canvas.width, canvas.height);  // Affiche l'image d'introduction
+
+    // Lance le jeu après 5 secondes
+    setTimeout(startGame, 5000); // 5000 millisecondes = 5 secondes
+}
+
+// Fonction pour démarrer le jeu
+function startGame() {
+    console.log("Le jeu commence maintenant !");
+   
+    // Efface l'image d'introduction
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Ajoute ici le code pour démarrer ton jeu (dessiner des éléments, animations, etc.)
+    // Exemple : dessiner un rectangle simple
+    ctx.fillStyle = "blue";
+    ctx.fillRect(100, 100, 200, 150); // Exemple d'élément du jeu
+}
+
+// Attendre que l'image soit chargée avant d'afficher l'intro
+introImage.onload = function() {
+    showIntro();  // Affiche l'image d'introduction dès que l'image est chargée
+};
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
