@@ -9,10 +9,15 @@
 <body>
   <h1>Jeu Pong en brrr🎮</h1>
   <canvas id="pong" width="600" height="400"></canvas>
-
+  
   <script>
+    // Création du canvas et de son contexte
     const canvas = document.getElementById("pong");
     const ctx = canvas.getContext("2d");
+
+    // Définir la taille du canvas
+    canvas.width = 800;
+    canvas.height = 600;
 
     // Création des éléments du jeu
     const paddleWidth = 10, paddleHeight = 80;
@@ -93,6 +98,34 @@
       player.dy = 0;
     });
 
+    // Fonction pour afficher l'image d'introduction pendant 5 secondes
+    const introImage = new Image();
+    introImage.src = 'intro-image.png'; // Remplace par ton image
+
+    function showIntro() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Efface tout à chaque frame
+      ctx.drawImage(introImage, 0, 0, canvas.width, canvas.height);  // Affiche l'image d'introduction
+
+      // Lance le jeu après 5 secondes
+      setTimeout(startGame, 5000); // 5000 millisecondes = 5 secondes
+    }
+
+    // Fonction pour démarrer le jeu
+    function startGame() {
+      console.log("Le jeu commence maintenant !");
+
+      // Efface l'image d'introduction
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Démarre le jeu
+      update();
+    }
+
+    // Attendre que l'image soit chargée avant d'afficher l'intro
+    introImage.onload = function() {
+      showIntro();  // Affiche l'image d'introduction dès que l'image est chargée
+    };
+
     // Boucle principale du jeu
     function update() {
       moveBall();
@@ -107,7 +140,6 @@
       requestAnimationFrame(update);
     }
 
-    update();
   </script>
 </body>
 </html>
